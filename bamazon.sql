@@ -18,6 +18,6 @@ INSERT INTO products (item_id, productName, departmentName,  price, inventory) v
 INSERT INTO products (item_id, productName, departmentName,  price, inventory) values (10, 'puppy', 'canine',  20, 75);
 INSERT INTO products (item_id, productName, departmentName,  price, inventory) values (11, 'dog', 'canine',  5.50, 10);
 INSERT INTO products (item_id, productName, departmentName,  price, inventory) values (20, 'chick', 'avian',  100, 15);
-INSERT INTO products (item_id, productName, departmentName,  price, inventory) values (21, 'chicken', 'avian',  5000, 1);tem
+INSERT INTO products (item_id, productName, departmentName,  price, inventory) values (21, 'chicken', 'avian',  5000, 1);
 
 SELECT * FROM products

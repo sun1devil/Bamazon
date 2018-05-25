@@ -1,81 +1,75 @@
 var mysql = require("mysql");
 var inquirer = require("inquirer")
 var connection = mysql.createConnection({
-  host: "localhost",
+    host: "localhost",
 
   // Your port; if not 3306
-  port: 3306,
+    port: 3306,
 
   // Your username
-  user: "root",
+    user: "root",
 
   // Your password
-  password: "#Devils1",
-  database: "bamazon_DB"
+    password: "#Devils1",
+    database: "bamazon_DB"
 });
 
 connection.connect(function(err) {
-  if (err) throw err;
-//   console.log("connected as id " + connection.threadId);
+    if (err) throw err;
+    console.log("connected as id " + connection.threadId);
   
 });
 
-function readBamazon() {
+function readBamazon(){
     console.log("Selecting all products...\n");
     connection.query("SELECT * FROM products", function(err, res) {
-      if (err) throw err;
+    if (err) throw err;
       // Log all results of the SELECT statement
-      console.log(res);
-      connection.end();
+    console.log(res);
+    promptCustomer()
+    //   connection.end();
     });
-  }
-
-  inquirer.prompt(
-    {
-        type: "input",
-        name: "userItem",
-        message: "Please enter the ID of the item you would like to buy?",
+}
+createProduct()
+readBamazon()
+function promptCustomer(){  
+    inquirer.prompt(
+        [{
+            type: "input",
+            name: "userItem",
+            message: "Please enter the ID of the item you would like to buy?",
 
         // Capture response from name
-    }).then(function (response) {
-        console.log (response)});
+        },{
+            type: "input",
+            name: "userQuantity",
+            message: "How many would you like to purchase?",
 
-
-        inquirer.prompt(
-            {
-                type: "input",
-                name: "userQuantity",
-                message: "How many would you like to purchase?",
-        
-                // Capture response from name
-            }).then(function (response) {
-                console.log (response)});
-
-       
-
-
-
+        // Capture response from name
+        }]
+        ).then(function (response){
+            console.log (response)
+    });
+}   
+     
 // ******************************************************************************
 
-//   function createProduct() {
-//     console.log("Inserting a product...\n");
-//     var query = connection.query(
-// "INSERT INTO products SET ?",
-//     {
-//       item_id: 1,
-//       productName: 'lizard',
-//       departmentName: 'reptile',
-//       price: 6.23,
-//       inventory: 56
-
-//     },
-//     function(err, res) {
-//         console.log(res.affectedRows + " product added!\n");
-//         // Call updateProduct AFTER the INSERT completes
-//         updateProduct();
-//     }
-// );
-
+  function createProduct() {
+    console.log("Inserting a product...\n");
+    connection.query("INSERT INTO products SET ?",
+    {
+      item_id: 1,
+      productName: 'lizard',
+      departmentName: 'reptile',
+      price: 6.23,
+      inventory: 56
+    },
+    function(err, res) {
+        console.log(res.affectedRows + " product added!\n");
+        // Call updateProduct AFTER the INSERT completes
+        // updateProduct();
+    });
+}
 
 // ******************************************************************************
 
