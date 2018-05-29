@@ -11,11 +11,74 @@ var connection = mysql.createConnection({
 
   // Your password
   password: "#Devils1",
-  database: "playlist_DB"
+  database: "bamazon_DB"
 });
 
 connection.connect(function(err) {
   if (err) throw err;
   console.log("connected as id " + connection.threadId);
-  afterConnection();
+  
 });
+
+
+
+
+
+
+createProduct();
+
+// createProduct();
+function createProduct() {
+  console.log("Inserting a product...\n");
+  connection.query("INSERT INTO products SET ?",
+      {
+          item_id: 1,
+          productName: 'lizard',
+          departmentName: 'reptile',
+          price: 6.23,
+          inventory: 56
+      },
+      function (err, res) {
+          console.log(res.affectedRows + " product added!\n");
+          // Call updateProduct AFTER the INSERT completes
+          // updateProduct();
+      });
+}
+
+// // ******************************************************************************
+
+// // function updateProduct() {
+// //     console.log("Updating all lizard inventory...\n");
+// //     var query = connection.query(
+// //       "UPDATE products SET ? WHERE ?",
+// //       [
+// //         {
+// //           quantity: 100
+// //         },
+// //         {
+// //           productName: 'lizard'
+// //         }
+// //       ],
+//       function(err, res) {
+//         console.log(res.affectedRows + " products updated!\n");
+//         // Call deleteProduct AFTER the UPDATE completes
+//         deleteProduct();
+//       }
+//     );
+
+// ******************************************************************************
+
+// function deleteProduct() {
+//     console.log("Deleting all canines...\n");
+//     connection.query(
+//       "DELETE FROM products WHERE ?",
+//       {
+//         departmentName: "canine"
+//       },
+//       function(err, res) {
+//         console.log(res.affectedRows + " products deleted!\n");
+//         // Call readProducts AFTER the DELETE completes
+//         readProducts();
+//       }
+//     );
+//   }

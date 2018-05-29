@@ -11,11 +11,11 @@ var connection = mysql.createConnection({
 
   // Your password
   password: "#Devils1",
-  database: "playlist_DB"
+  database: "bamazon_DB"
 });
 
 connection.connect(function(err) {
   if (err) throw err;
   console.log("connected as id " + connection.threadId);
-  afterConnection();
+  
 });
