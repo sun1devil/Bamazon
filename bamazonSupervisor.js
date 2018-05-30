@@ -48,7 +48,7 @@ function promptSupervisor(product) {
     [{
       type: "list",
       name: "mgrList",
-      message: "Your the boss! What would you like to do?",
+      message: "Your the Big Dog! You can do whatever you like?",
       choices: ["View Products", "See Low Inventory", "Add Inventory", "Add New Product", "Remove Product", "View Sales by Dept", "Create new Dept"]
     }]);
   }

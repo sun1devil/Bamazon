@@ -63,13 +63,12 @@ function readBamazon() {
         //     console.log("*****************************");
         // }
         promptCustomer(res);
-       connection.end();
     });
 }
 
 readBamazon();
 function promptCustomer(product) {
-    console.log('PRODUCT is replaced by res: ' + product)
+    // console.log('PRODUCT is replaced by res: ' + product)
     inquirer.prompt(
         [{
             type: "input",
@@ -86,29 +85,40 @@ function promptCustomer(product) {
         }]
     ).then(function (res) {
         // console.log(res);
-        var item = res.userItem
+        var item = parseInt(res.userItem)
         var qty = parseInt(res.userQuantity);
-        var price = product[0].price
-        console.log("PRODUCT price: "+ product[0].price)
-        // for (var i= 0; i<product[i].length; i++)
-        if ( qty <= product[0].inventory){
-            console.log ("Item purchased! Your total cost =: " + "$" + (qty * price));
-            // update inventory
-            console.log(item);
-            console.log(qty);
-            console.log(product[0].inventory);
-            updateProduct()
-        //    conection.query( "UPDATE products SET ? WHERE ?",)
-        //     [
-        //     {inventory: product[0].inventory - qty
-        //     },
-        //     {
-        //        item_id: item 
-        //     }
-        //     ]
-        }else{
-            console.log("Not enough inventory!");
-            promptCustomer();
+        var itemObject;       
+        for (var i= 0; i<product.length; i++){
+            if (product[i].item_id === item){
+                itemObject = product[i]
+            }  
+        }
+        if (!itemObject){
+            console.log("Invalid ID!")
+            promptCustomer(product);
+        } else {
+            var price = itemObject.price
+            console.log("PRODUCT price: "+ itemObject.price)
+            // console.log(itemObject)
+            if ( qty <= itemObject.inventory){
+                console.log ("Item purchased! Your total cost =: " + "$" + (qty * price));
+                // update inventory
+                // console.log(item);
+                // console.log(qty);
+                // console.log(itemObject.inventory);
+                updateProduct(itemObject, qty);
+            //    conection.query( "UPDATE products SET ? WHERE ?",)
+            //     [
+            //     {inventory: product[0].inventory - qty
+            //     },
+            //     {
+            //        item_id: item 
+            //     }
+            //     ]
+            }else{
+                console.log("Not enough inventory!");
+                promptCustomer(product);
+            }
         }
     });
 }
@@ -117,20 +127,23 @@ function promptCustomer(product) {
 
 
 
-function updateProduct() {
+function updateProduct(item, qty) {
     console.log("Updating inventory...\n");
-    var query = connection.query(
+    // console.log(typeof (item.inventory - qty));
+    // console.log(typeof item.item_id);
+    connection.query(
       "UPDATE products SET ? WHERE ?",
       [
         {
-            inventory: product[0].inventory - qty
+            inventory: item.inventory -qty
         },
         {
-            item_id: item
+            item_id: item.item_id
         }
       ],
       function (err, res) {
-        console.log(res.affectedRows + " products updated!\n");
+        // console.log(res.affectedRows);
+        readBamazon();
         // Call deleteProduct AFTER the UPDATE completes
         // deleteProduct();
       }
