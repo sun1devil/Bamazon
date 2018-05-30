@@ -14,58 +14,55 @@ var connection = mysql.createConnection({
   database: "bamazon_DB"
 });
 
-connection.connect(function(err) {
+connection.connect(function (err) {
   if (err) throw err;
   console.log("connected as id " + connection.threadId);
-  
+
 });
-
-
-
-
-
-
-createProduct();
-
 // createProduct();
-function createProduct() {
-  console.log("Inserting a product...\n");
-  connection.query("INSERT INTO products SET ?",
-      {
-          item_id: 1,
-          productName: 'lizard',
-          departmentName: 'reptile',
-          price: 6.23,
-          inventory: 56
-      },
-      function (err, res) {
-          console.log(res.affectedRows + " product added!\n");
-          // Call updateProduct AFTER the INSERT completes
-          // updateProduct();
-      });
-}
+// readBamazon
+// updateProduct()
+// deleteProduct();
+
+// // createProduct();
+// function createProduct() {
+//   console.log("Inserting a product...\n");
+//   connection.query("INSERT INTO products SET ?",
+//       {
+//           item_id: 1,
+//           productName: 'lizard',
+//           departmentName: 'reptile',
+//           price: 6.23,
+//           inventory: 56
+//       },
+//       function (err, res) {
+//           console.log(res.affectedRows + " product added!\n");
+//           // Call updateProduct AFTER the INSERT completes
+//           // updateProduct();
+//       });
+// }
 
 // // ******************************************************************************
 
-// // function updateProduct() {
-// //     console.log("Updating all lizard inventory...\n");
-// //     var query = connection.query(
-// //       "UPDATE products SET ? WHERE ?",
-// //       [
-// //         {
-// //           quantity: 100
-// //         },
-// //         {
-// //           productName: 'lizard'
-// //         }
-// //       ],
-//       function(err, res) {
-//         console.log(res.affectedRows + " products updated!\n");
-//         // Call deleteProduct AFTER the UPDATE completes
-//         deleteProduct();
+// function updateProduct() {
+//   console.log("Updating inventory...\n");
+//   var query = connection.query(
+//     "UPDATE products SET ? WHERE ?",
+//     [
+//       {
+//         item_id: 15
+//       },
+//       {
+//         id: 4
 //       }
-//     );
-
+//     ],
+//     function (err, res) {
+//       console.log(res.affectedRows + " products updated!\n");
+//       // Call deleteProduct AFTER the UPDATE completes
+//       // deleteProduct();
+//     }
+//   );
+// }
 // ******************************************************************************
 
 // function deleteProduct() {
@@ -73,12 +70,12 @@ function createProduct() {
 //     connection.query(
 //       "DELETE FROM products WHERE ?",
 //       {
-//         departmentName: "canine"
+//         departmentName: "reptile"
 //       },
 //       function(err, res) {
 //         console.log(res.affectedRows + " products deleted!\n");
 //         // Call readProducts AFTER the DELETE completes
-//         readProducts();
+//         // readProducts();
 //       }
 //     );
 //   }
