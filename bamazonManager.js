@@ -1,4 +1,6 @@
 var mysql = require("mysql");
+var inquirer = require("inquirer")
+require("console.table")
 
 var connection = mysql.createConnection({
   host: "localhost",
@@ -19,9 +21,46 @@ connection.connect(function (err) {
   console.log("connected as id " + connection.threadId);
 
 });
-// createProduct();
-// readBamazon
-// updateProduct()
+readBamazon()
+function readBamazon() {
+  console.log("Selecting all products...\n");
+  connection.query("SELECT * FROM products", function (err, res) {
+    if (err) throw err;
+    // Log all results of the SELECT statement n table form
+    console.table(res)
+
+    // console.log("************Items for sale************\n");
+    //  var items = JSON.stringify(res); 
+    //  console.log("ITEMS TEST: "+ items) 
+    // for (var i = 0; i < items.length; i++) {
+    //     console.log("ID: " + items[i].item_id + "|" + "Product: " + items[i].productName + "|" + "Department: " + items[i].DepartmentName + "|" + "Price: " + "|" + items[i].price + "|");
+    //     console.log("*****************************");
+    // }
+    promptManager(res);
+    connection.end();
+  });
+}
+
+
+function promptManager(product) {
+  console.log('PRODUCT is replaced by res: ' + product)
+  inquirer.prompt(
+    [{
+      type: "list",
+      name: "mgrList",
+      message: "Your the boss! What would you like to do?",
+      choices: ["View Products", "See Low Inventory", "Update Product", "Add New Product", "Remove Product",]
+    }]);
+  }
+  //  If Choice is 0
+   // readBamazon()
+   //  If Choice is 1
+  //  readLowInv
+   //  If Choice is 2
+  // updateProduct()
+   //  If Choice is 3
+   // createProduct();
+ //  If Choice is 4
 // deleteProduct();
 
 // // createProduct();
