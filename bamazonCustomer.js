@@ -89,7 +89,7 @@ function promptCustomer(product) {
         var qty = parseInt(res.userQuantity);
         var itemObject;       
         for (var i= 0; i<product.length; i++){
-            if (product[i].item_id === item){
+            if (product[i].id === item){
                 itemObject = product[i]
             }  
         }
@@ -138,7 +138,7 @@ function updateProduct(item, qty) {
             inventory: item.inventory -qty
         },
         {
-            item_id: item.item_id
+            id: item.id
         }
       ],
       function (err, res) {
