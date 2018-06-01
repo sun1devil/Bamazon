@@ -35,44 +35,44 @@ function readBamazon() {
 }
 
  
-function promptManager(product) {
+function promptManager(res) {
   
   inquirer.prompt(
     [{
       type: "list",
       name: "mgrList",
       message: "Your the boss! What would you like to do?",
-      choices: ["View Products", "See Low Inventory", "Update Product", "Add New Product", "Remove Product",]
-    }]).then(function (answer){
-      console.log(answer);
+      choices: ["View Products", "See Low Inventory < 20", "Update Product", "Add New Product", "Remove Product",]
+    }]).then(function (res){
+      console.log(res);
     //  If Choice is 0
     // readBamazon()
-      if (answer.mgrList === "View Products"){
-         readBamazon();
-         promptManager(product);
+      if (res.mgrList === "View Products"){
+         readBamazon(res);
+         promptManager(res);
       }
    
 
     //  If Choice is 1
     //  readLowInv
-  if (answer.mgrList === "See Low Inventory"){
-    readLowInv();
+  if (res.mgrList === "See Low Inventory < 20"){
+    readLowInv(res);
  }
 
     //  If Choice is 2
     // updateProduct()
-    if (answer.mgrList === "Update Product"){
-      updateProduct();
+    if (res.mgrList === "Update Product"){
+      updateProduct(res);
    }
   
    //  If Choice is 3
    // createProduct();
-   if (answer.mgrList === "Add New Product"){
-    createProduct();
+   if (res.mgrList === "Add New Product"){
+    createProduct(res);
  }
  //  If Choice is 4
 // deleteProduct();
-if (answer.mgrList === "Remove Product"){
+if (res.mgrList === "Remove Product"){
   deleteProduct();
   promptManager(res);
 }
@@ -103,16 +103,16 @@ function createProduct() {
   console.log("Inserting a product...\n");
   connection.query("INSERT INTO products SET ?",
       {
-          item_id: 1,
+          id: 10,
           productName: 'lizard',
           departmentName: 'reptile',
           price: 6.23,
           inventory: 56
       },
       function (err, res) {
-          console.log(res.affectedRows + " product added!\n");
+          console.log(" product added!\n");
           // Call updateProduct AFTER the INSERT completes
-          readBamazon()
+          readBamazon(res)
       });
 }
 

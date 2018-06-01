@@ -49,9 +49,9 @@ function promptSupervisor(res) {
       type: "list",
       name: "supList",
       message: "You Are the BIG DOG! You can do whatever you like! Choose an action",
-      choices: ["View Products", "See Low Inventory", "Add Inventory", "Add New Product", "Remove Product", "View Sales by Dept", "Create new Dept"]
+      choices: ["View Products", "See Low Inventory <20", "Add Inventory", "Add New Product", "Remove Product", "View Sales by Dept", "Create new Dept"]
     }]).then(function (answer){
-      console.log(answer);
+      // console.log(answer);
     //  If Choice is 0
     // readBamazon()
       if (answer.supList === "View Products"){
@@ -62,7 +62,7 @@ function promptSupervisor(res) {
 
     //  If Choice is 1
     //  readLowInv
-  if (answer.supList === "See Low Inventory"){
+  if (answer.supList === "See Low Inventory <20"){
     readLowInv();
     promptSupervisor(res);
  }
@@ -80,14 +80,14 @@ function promptSupervisor(res) {
     createProduct();
     promptSupervisor(res);
  }
- //  If Choice is 4
-// deleteProduct();
-if (answer.supList === "Remove Product"){
-  deleteProduct();
-  promptSupervisor(res);
-}
-})
-}
+//  //  If Choice is 4
+// // deleteProduct();
+// if (answer.supList === "Remove Product"){
+//   deleteProduct();
+//   promptSupervisor(res);
+// }
+// })
+// }
 
 // ********************************************************************************************
 function readLowInv() {
@@ -137,7 +137,7 @@ function deleteProduct() {
         departmentName: "reptile"
       },
       function(err, res) {
-        console.log(res.affectedRows + " products deleted!\n");
+        console.log(" products deleted!\n");
 //         // Call readProducts AFTER the DELETE completes
         readBamazon();
 
