@@ -3,6 +3,7 @@ Project to utilize SQL and node to monitor product inventory. Contains 3 "views"
 
 Bamazon Customer view Demo
 https://drive.google.com/file/d/1tFLbfHALDufOEhD9jU7fVCSuv-8bJ3wK/view
+![demo](ManagerDemo.gif)
 Bamazon Mgr Demo
 https://drive.google.com/file/d/1VBD4VT0p7MxclkcIftqlU_1ANlQJBYPU/view
 
